@@ -63,6 +63,47 @@ nav {
       margin: 20px;
     }
 
+    .user {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      //gap: 10px;
+
+      @include sm {
+        display: none;
+      }
+
+      img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 40px;
+        margin-right: 20px;
+      }
+
+      .profile {
+        padding: 12px 24px;
+        background-color: #fece51;
+        cursor: pointer;
+        border: none;
+        position: relative;
+
+        .notification {
+          position: absolute;
+          right: -8px;
+          top: -8px;
+          background-color: red;
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+        }
+      }
+    }
+
     .register {
       background-color: #fece51;
     }
@@ -99,6 +140,11 @@ nav {
 
       &.active {
         right: 0;
+
+        .user {
+          display: flex;
+          color: #fece51;
+        }
       }
 
       @include sm {
