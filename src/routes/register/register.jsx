@@ -1,16 +1,21 @@
-import "./login.scss";
+import "./register.scss";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   return (
     <div className="register">
       <div className="formContainer">
         <form>
-          <h1>Log In</h1>
+          <h1>Create an Account</h1>
           <input
             type="text"
             name="username"
             placeholder="Username"
+          />
+          <input
+            type="text"
+            name="email"
+            placeholder="Email"
           />
           <input
             type="password"
@@ -18,7 +23,7 @@ const Login = () => {
             placeholder="Password"
           />
           <button>Register</button>
-          <Link to="/register">Don´t you have an account?</Link>
+          <Link to="/login">Do you have an account?</Link>
         </form>
       </div>
       <div className="imgContainer">
@@ -31,4 +36,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

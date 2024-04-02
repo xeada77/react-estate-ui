@@ -1,17 +1,34 @@
+@import "../../responsive.scss";
+
 .profilePage {
   display: flex;
   height: 100%;
+
+  @include md {
+    flex-direction: column;
+    overflow: scroll;
+  }
 
   .details {
     flex: 3;
     overflow-y: scroll;
     padding-bottom: 50px;
 
+    @include md {
+      flex: none;
+      height: max-content;
+      overflow: hidden;
+    }
+
     .wrapper {
       display: flex;
       flex-direction: column;
       padding-right: 50px;
       gap: 50px;
+
+      @include md {
+        padding-right: 10px;
+      }
       .title {
         display: flex;
         justify-content: space-between;
@@ -52,10 +69,19 @@
     display: flex;
     height: 100%;
     background-color: #fcf5f3;
+
+    @include md {
+      flex: none;
+      height: max-content;
+    }
     .wrapper {
       height: 100%;
       flex: 1;
       padding: 0px 20px;
+
+      @include md {
+        padding: 50px 20px;
+      }
     }
   }
 }

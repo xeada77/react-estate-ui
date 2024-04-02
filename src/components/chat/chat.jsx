@@ -52,6 +52,22 @@ const Chat = () => {
           <span>{userData.name}</span>
           <p>Lorem ipsum dolor sit amet...</p>
         </div>
+        <div className="message">
+          <img
+            src={userData.img}
+            alt=""
+          />
+          <span>{userData.name}</span>
+          <p>Lorem ipsum dolor sit amet...</p>
+        </div>
+        <div className="message">
+          <img
+            src={userData.img}
+            alt=""
+          />
+          <span>{userData.name}</span>
+          <p>Lorem ipsum dolor sit amet...</p>
+        </div>
       </div>
       {chat && (
         <div className="chatBox">
