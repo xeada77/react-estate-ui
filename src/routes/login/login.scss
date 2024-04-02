@@ -2,55 +2,54 @@
 .login {
   display: flex;
   height: 100%;
-  justify-content: space-between;
 
   .formContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     flex: 3;
-
-    h1 {
-      font-size: 30px;
-    }
+    height: 100%;
 
     form {
       display: flex;
       flex-direction: column;
-      height: 100%;
-      align-items: center;
-      justify-content: center;
       gap: 20px;
 
       button,
       input {
-        width: 100%;
         padding: 20px;
-        border: 1px solid #888;
+        border: 1px solid gray;
         border-radius: 5px;
       }
 
       button {
         border: none;
         color: white;
-        background-color: rgb(9, 138, 121);
+        font-weight: bold;
+        background-color: teal;
         cursor: pointer;
-      }
 
-      &:last-child {
-        align-items: self-start;
+        &:disabled {
+          background-color: #bed9d8;
+          cursor: not-allowed;
+        }
       }
 
       a {
-        font-size: 12px;
-        font-weight: 300;
-        text-decoration: underline;
+        font-size: 14px;
+        color: gray;
+        border-bottom: 1px solid gray;
+        width: max-content;
       }
     }
   }
   .imgContainer {
     flex: 2;
     background-color: #fcf5f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     @include md {
       display: none;
