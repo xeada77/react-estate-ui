@@ -54,6 +54,10 @@
           display: flex;
           align-items: center;
           gap: 20px;
+
+          .username {
+            text-transform: capitalize;
+          }
         }
         img {
           height: 40px;

@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./login.scss";
 import { Link, useNavigate } from "react-router-dom";
 import apiRequest from "../../lib/apiRequest";
+import { AuthContext } from "../../Context/AuthContext";
 
 const Login = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { updateUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -25,8 +27,8 @@ const Login = () => {
         password,
       });
 
-      localStorage.setItem("user", JSON.stringify(res.data));
-      console.log(res.data);
+      updateUser(res.data);
+      //console.log(res.data);
       navigate("/");
     } catch (err) {
       console.log(err.response.data);
@@ -37,7 +39,7 @@ const Login = () => {
   };
 
   return (
-    <div className="register">
+    <div className="loginPage">
       <div className="formContainer">
         <form onSubmit={handleSubmit}>
           <h1>Welcome Back </h1>
