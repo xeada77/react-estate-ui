@@ -33,7 +33,7 @@ const ProfilePage = () => {
             <span>
               Avatar:
               <img
-                src={currentUser.img || "/noavatar.png"}
+                src={currentUser.avatar || "/noavatar.png"}
                 alt=""
               />
             </span>

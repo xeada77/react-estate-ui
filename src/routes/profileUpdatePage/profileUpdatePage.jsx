@@ -1,15 +1,36 @@
 import { useContext, useState } from "react";
 import "./profileUpdatePage.scss";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
+import apiRequest from "../../lib/apiRequest.js";
 
 const ProfileUpdatePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, updateUser } = useContext(AuthContext);
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    const formData = new FormData(e.target);
+
+    const { username, email, password } = Object.fromEntries(formData);
+    console.log(username);
+    try {
+      const res = await apiRequest.put(`/users/${currentUser.id}`, {
+        username,
+        email,
+        password,
+      });
+      console.log(res.data);
+      updateUser(res.data);
+    } catch (err) {
+      console.log(err);
+      setError(err.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="profileUpdatePage">

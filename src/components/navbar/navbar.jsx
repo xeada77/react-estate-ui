@@ -29,10 +29,10 @@ function Navbar() {
         {currentUser ? (
           <div className="user">
             <img
-              src="/noavatar.png"
+              src={currentUser.avatar || "/noavatar.png"}
               alt=""
             />
-            <span>John Doe</span>
+            <span>{currentUser.username}</span>
             <Link
               to="/profile"
               className="profile"
@@ -63,7 +63,7 @@ function Navbar() {
           {currentUser ? (
             <div className="user">
               <img
-                src="/noavatar.png"
+                src={currentUser.avatar || "/noavatar.png"}
                 alt=""
               />
               <span>John Doe</span>
