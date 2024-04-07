@@ -2,16 +2,62 @@ import { useState } from "react";
 import "./newPostPage.scss";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import apiRequest from "../../lib/apiRequest";
 
 const NewPostPage = () => {
   const [value, setValue] = useState("");
+  const [error, setError] = useState("");
+  const [images, setImages] = useState([]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    const inputs = Object.fromEntries(formData);
+    inputs.desc = value;
+
+    console.log(inputs);
+
+    try {
+      const res = await apiRequest.post("posts", {
+        postData: {
+          title: inputs.title,
+          price: parseInt(inputs.price),
+          images: images,
+          address: inputs.address,
+          city: inputs.city,
+          bedroom: parseInt(inputs.bedroom),
+          bathroom: parseInt(inputs.bathroom),
+          property: inputs.property,
+          type: inputs.type,
+          latitude: inputs.latitude,
+          longitude: inputs.longitude,
+        },
+        postDetail: {
+          desc: value,
+          size: parseInt(inputs.size),
+          school: parseInt(inputs.school),
+          bus: parseInt(inputs.bus),
+          restaurant: parseInt(inputs.restaurant),
+          income: inputs.income,
+          pet: inputs.pet,
+          utilities: inputs.utilities,
+        },
+      });
+
+      //console.log(res.data);
+    } catch (err) {
+      //console.log(err);
+      setError(err);
+    }
+  };
 
   return (
     <div className="newPostPage">
       <div className="formContainer">
         <h1>Add New Post</h1>
         <div className="wrapper">
-          <form action="">
+          <form onSubmit={handleSubmit}>
             <div className="item">
               <label htmlFor="title">Title</label>
               <input
@@ -198,6 +244,7 @@ const NewPostPage = () => {
             <div className="item">
               <button className="submit">Update</button>
             </div>
+            {error && <span>{error}</span>}
           </form>
         </div>
       </div>
