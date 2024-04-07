@@ -48,7 +48,9 @@ const ProfilePage = () => {
 
           <div className="title">
             <h1>My List</h1>
-            <button>Add New Post</button>
+            <Link to={"/add"}>
+              <button>Add New Post</button>
+            </Link>
           </div>
           <List />
           <div className="title">

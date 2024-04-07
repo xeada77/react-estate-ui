@@ -1,0 +1,88 @@
+@import "../../responsive.scss";
+.newPostPage {
+  display: flex;
+  height: 100%;
+
+  .formContainer {
+    flex: 3;
+    overflow: scroll;
+
+    .wrapper {
+      padding: 30px 50px 100px 0px;
+
+      form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+
+        .item {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          width: 30%;
+
+          label {
+            font-weight: bold;
+          }
+
+          input {
+            padding: 20px;
+            border: 1px solid gray;
+            border-radius: 5px;
+          }
+
+          select {
+            padding: 19px;
+            border: 1px solid gray;
+            border-radius: 5px;
+            background-color: white;
+          }
+
+          &.description {
+            height: 320px;
+            width: 100%;
+
+            .quill > .ql-container > .ql-editor {
+              height: 200px;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+      .submit {
+        padding: 20px;
+        border-radius: 5px;
+        border: none;
+        color: white;
+        background-color: teal;
+        font-weight: bold;
+        cursor: pointer;
+        height: 100%;
+
+        &:disabled {
+          background: #bed9d8;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+  .sideContainer {
+    flex: 2;
+    background-color: #fcf5f3;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    @include md {
+      display: none;
+    }
+
+    .avatar {
+      width: 50%;
+      object-fit: cover;
+    }
+  }
+}
