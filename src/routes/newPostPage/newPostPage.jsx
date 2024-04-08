@@ -3,20 +3,22 @@ import "./newPostPage.scss";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import apiRequest from "../../lib/apiRequest";
+import { useNavigate } from "react-router-dom";
+import UploadWidget from "../../components/uploadWidget/uploadWidget";
 
 const NewPostPage = () => {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const [images, setImages] = useState([]);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
 
     const inputs = Object.fromEntries(formData);
-    inputs.desc = value;
 
-    console.log(inputs);
+    //console.log(inputs);
 
     try {
       const res = await apiRequest.post("posts", {
@@ -46,9 +48,10 @@ const NewPostPage = () => {
       });
 
       //console.log(res.data);
+      navigate("/" + res.data.data.id);
     } catch (err) {
-      //console.log(err);
-      setError(err);
+      console.log(err.response.data.message);
+      setError(err.response.data.message);
     }
   };
 
@@ -248,7 +251,32 @@ const NewPostPage = () => {
           </form>
         </div>
       </div>
-      <div className="sideContainer"></div>
+      <div className="sideContainer">
+        {images.map((image, index) => (
+          <img
+            src={image}
+            key={index}
+          ></img>
+        ))}
+        <UploadWidget
+          uwConfig={{
+            cloudName: "dwsetf6sr",
+            uploadPreset: "estateapp",
+            // cropping: true, //add a cropping step
+            // showAdvancedOptions: true,  //add advanced options (public_id and tag)
+            // sources: [ "local", "url"], // restrict the upload sources to URL and local files
+            multiple: true, //restrict upload to a single file
+            folder: "posts", //upload files to the specified folder
+            // tags: ["users", "profile"], //add the given tags to the uploaded files
+            // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
+            clientAllowedFormats: ["png", "jpeg", "jpg", "gif", "wep"], //restrict uploading to image files only
+            maxImageFileSize: 2000000, //restrict file size to less than 2MB
+            // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
+            // theme: "purple", //change to a purple theme
+          }}
+          setState={setImages}
+        />
+      </div>
     </div>
   );
 };

@@ -11,7 +11,7 @@ const ProfileUpdatePage = () => {
   const navigate = useNavigate();
 
   const { currentUser, updateUser } = useContext(AuthContext);
-  const [avatar, setAvatar] = useState(currentUser.avatar);
+  const [avatar, setAvatar] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ const ProfileUpdatePage = () => {
         username,
         email,
         password,
-        avatar,
+        avatar: avatar[0],
       });
       //console.log(res.data);
       updateUser(res.data);
@@ -37,7 +37,7 @@ const ProfileUpdatePage = () => {
       setIsLoading(false);
     }
   };
-
+  console.log(avatar);
   return (
     <div className="profileUpdatePage">
       <div className="formContainer">
@@ -80,7 +80,7 @@ const ProfileUpdatePage = () => {
       <div className="sideContainer">
         <img
           className="avatar"
-          src={avatar || "/noavatar.png"}
+          src={avatar[0] || currentUser.avatar || "/noavatar.png"}
           alt=""
         />
         <UploadWidget
@@ -99,7 +99,7 @@ const ProfileUpdatePage = () => {
             // maxImageWidth: 2000, //Scales the image down to a width of 2000 pixels before uploading
             // theme: "purple", //change to a purple theme
           }}
-          setAvatar={setAvatar}
+          setState={setAvatar}
         />
       </div>
     </div>
