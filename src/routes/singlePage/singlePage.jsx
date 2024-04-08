@@ -1,36 +1,45 @@
 import "./singlePage.scss";
 import Slider from "../../components/slider/slider";
-import { singlePostData, userData } from "../../lib/dummydata";
 import Map from "../../components/map/map";
+import { useLoaderData } from "react-router-dom";
+import DOMPurify from "dompurify";
 
 const SinglePage = () => {
+  const { data } = useLoaderData();
+  //console.log(data);
+
   return (
     <div className="singlePage">
       <div className="details">
         <div className="wrapper">
-          <Slider images={singlePostData.images} />
+          <Slider images={data.images} />
           <div className="info">
             <div className="top">
               <div className="post">
-                <h1>{singlePostData.title}</h1>
+                <h1>{data.title}</h1>
                 <div className="address">
                   <img
                     src="/pin.png"
                     alt=""
                   />
-                  <span>{singlePostData.address}</span>
+                  <span>{data.address}</span>
                 </div>
-                <div className="price">$ {singlePostData.price}</div>
+                <div className="price">$ {data.price}</div>
               </div>
               <div className="user">
                 <img
-                  src={userData.img}
+                  src={data.user.avatar}
                   alt=""
                 />
-                <span>{userData.name}</span>
+                <span className="username">{data.user.username}</span>
               </div>
             </div>
-            <div className="bottom">{singlePostData.description}</div>
+            <div
+              className="bottom"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(data.postDetail.desc),
+              }}
+            ></div>
           </div>
         </div>
       </div>
@@ -76,21 +85,25 @@ const SinglePage = () => {
                 src="/size.png"
                 alt=""
               />
-              <span>80 m2</span>
+              <span>{`${data.postDetail.size} m2`}</span>
             </div>
             <div className="size">
               <img
                 src="/bed.png"
                 alt=""
               />
-              <span>2 bed</span>
+              <span>{`${data.bedroom} ${
+                data.bedroom > 1 ? "beds" : "bed"
+              }`}</span>
             </div>
             <div className="size">
               <img
                 src="/bath.png"
                 alt=""
               />
-              <span>1 bathroom</span>
+              <span>{`${data.bathroom} ${
+                data.bathroom > 1 ? "bathrooms" : "bathroom"
+              }`}</span>
             </div>
           </div>
           <p className="title">Nearby PLaces</p>
@@ -102,7 +115,7 @@ const SinglePage = () => {
               />
               <div className="featureText">
                 <span>School</span>
-                <p>250m away</p>
+                <p>{`${data.postDetail.school}m away`}</p>
               </div>
             </div>
             <div className="feature">
@@ -112,7 +125,7 @@ const SinglePage = () => {
               />
               <div className="featureText">
                 <span>Bus Stop</span>
-                <p>100m away</p>
+                <p>{`${data.postDetail.bus}m away`}</p>
               </div>
             </div>
             <div className="feature">
@@ -122,13 +135,13 @@ const SinglePage = () => {
               />
               <div className="featureText">
                 <span>Restaurant</span>
-                <p>200m away</p>
+                <p>{`${data.postDetail.restaurant}m away`}</p>
               </div>
             </div>
           </div>
           <p className="title">Location</p>
           <div className="mapContainer">
-            <Map items={[singlePostData]} />
+            <Map items={[data]} />
           </div>
           <div className="buttons">
             <button>

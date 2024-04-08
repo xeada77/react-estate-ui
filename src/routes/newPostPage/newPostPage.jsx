@@ -179,12 +179,8 @@ const NewPostPage = () => {
                 id="utilities"
                 name="utilities"
               >
-                <option value="Renter is responsible">
-                  Renter is responsible
-                </option>
-                <option value="Owner is responsible">
-                  Owner is responsible
-                </option>
+                <option value="renter">Renter is responsible</option>
+                <option value="tenant">Owner is responsible</option>
               </select>
             </div>
             <div className="item">
@@ -193,8 +189,8 @@ const NewPostPage = () => {
                 id="pet"
                 name="pet"
               >
-                <option value="Pets Allowed">Pets Allowed</option>
-                <option value="Pets not Allowed">Pets Not Allowed</option>
+                <option value="allow">Pets Allowed</option>
+                <option value="not allow">Pets Not Allowed</option>
               </select>
             </div>
             <div className="item">

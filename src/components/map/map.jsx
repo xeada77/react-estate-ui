@@ -5,12 +5,16 @@ import "leaflet/dist/leaflet.css";
 import Pin from "../pin/pin";
 
 const Map = ({ items }) => {
-  const position = [52.47, -1.9];
+  //console.log(items);
+  const position =
+    items.length === 1
+      ? [items[0].latitude, items[0].longitude]
+      : [52.47, -1.9];
 
   return (
     <MapContainer
       center={position}
-      zoom={7}
+      zoom={6}
       scrollWheelZoom={true}
       className="map"
     >

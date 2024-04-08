@@ -9,7 +9,7 @@ const Card = ({ item }) => {
         className="imageContainer"
       >
         <img
-          src={item.img}
+          src={item.images[0]}
           alt=""
         />
       </Link>
