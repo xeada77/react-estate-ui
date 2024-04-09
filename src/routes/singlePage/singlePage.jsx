@@ -54,7 +54,11 @@ const SinglePage = () => {
               />
               <div className="featureText">
                 <span>Utilities</span>
-                <p>Renter is responsible</p>
+                {data.postDetail.utilities === "renter" ? (
+                  <p>Renter is responsible</p>
+                ) : (
+                  <p>Tenant is responsible</p>
+                )}
               </div>
             </div>
             <div className="feature">
@@ -64,7 +68,11 @@ const SinglePage = () => {
               />
               <div className="featureText">
                 <span>Pet Policy</span>
-                <p>Pets Allowed</p>
+                {data.postDetail.pet === "allow" ? (
+                  <p>Pets Allowed</p>
+                ) : (
+                  <p>Pets not Allowed</p>
+                )}
               </div>
             </div>
             <div className="feature">

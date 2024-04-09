@@ -68,7 +68,7 @@ const NewPostPage = () => {
                 id="title"
                 name="title"
                 minLength={3}
-                maxLength={20}
+                maxLength={100}
               />
             </div>
             <div className="item">

@@ -8,10 +8,17 @@ const Card = ({ item }) => {
         to={`/${item.id}`}
         className="imageContainer"
       >
-        <img
-          src={item.images[0]}
-          alt=""
-        />
+        {item.images !== undefined ? (
+          <img
+            src={item.images[0]}
+            alt=""
+          />
+        ) : (
+          <img
+            src=""
+            alt=""
+          />
+        )}
       </Link>
       <div className="textContainer">
         <h2 className="title">
