@@ -9,12 +9,13 @@ import Chat from "../../components/chat/chat";
 import List from "../../components/list/list";
 import apiRequest from "../../lib/apiRequest";
 import "./profilePage.scss";
-import { Suspense, useContext } from "react";
+import { Suspense, useContext, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
   const { updateUser, currentUser } = useContext(AuthContext);
+  const [savedPosts, setSavedPosts] = useState([]);
 
   //const userPosts = apiRequest("/posts?userId=" + currentUser.id);
   //defer({ userPosts });
@@ -69,6 +70,7 @@ const ProfilePage = () => {
             >
               {(userPostsResponse) => {
                 //console.log(userPostsResponse);
+
                 return <List posts={userPostsResponse.data.data.userPosts} />;
               }}
             </Await>
@@ -84,7 +86,8 @@ const ProfilePage = () => {
             >
               {(userPostsResponse) => {
                 //console.log(userPostsResponse);
-                return <List posts={userPostsResponse.data.data.savedPosts} />;
+                setSavedPosts(userPostsResponse.data.data.savedPosts);
+                return <List posts={savedPosts} />;
               }}
             </Await>
           </Suspense>

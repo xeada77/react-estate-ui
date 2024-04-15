@@ -1,11 +1,29 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import "./card.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
+import apiRequest from "../../lib/apiRequest";
 
 const Card = ({ item }) => {
   const { currentUser } = useContext(AuthContext);
-  //console.log(currentUser);
+  const [saved, setSaved] = useState(item.isSaved);
+  const navigate = useNavigate();
+  //console.log(item.isSaved);
+
+  const handleSave = async () => {
+    setSaved((prev) => !prev);
+
+    if (!currentUser) {
+      navigate("/login");
+    }
+    try {
+      //console.log(item.id);
+      await apiRequest.post("/users/save", { postId: item.id });
+    } catch (err) {
+      console.log(err);
+      setSaved((prev) => !prev);
+    }
+  };
   return (
     <div className="card">
       <Link
@@ -55,7 +73,11 @@ const Card = ({ item }) => {
           </div>
           {currentUser === null || currentUser.id !== item.userId ? (
             <div className="icons">
-              <div className="icon">
+              <div
+                className="icon"
+                style={saved ? { backgroundColor: "#fece51" } : null}
+                onClick={handleSave}
+              >
                 <img
                   src="/save.png"
                   alt=""
