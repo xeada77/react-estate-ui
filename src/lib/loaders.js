@@ -21,7 +21,20 @@ export const listPageLoader = async ({ request, params }) => {
     return defer({
       postResponse: postPromise,
     });
-  } catch (error) {
+  } catch (err) {
+    return {
+      error: { message: "Something went Wrong!" },
+    };
+  }
+};
+
+export const profilePageLoader = async ({ request, params }) => {
+  try {
+    const postPromise = apiRequest("/users/profilePosts");
+    return defer({
+      postResponse: postPromise,
+    });
+  } catch (err) {
     return {
       error: { message: "Something went Wrong!" },
     };

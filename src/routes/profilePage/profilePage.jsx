@@ -1,18 +1,24 @@
-import { Link, useNavigate, Await, defer } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  Await,
+  defer,
+  useLoaderData,
+} from "react-router-dom";
 import Chat from "../../components/chat/chat";
 import List from "../../components/list/list";
 import apiRequest from "../../lib/apiRequest";
 import "./profilePage.scss";
 import { Suspense, useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
-import Card from "../../components/card/card";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
   const { updateUser, currentUser } = useContext(AuthContext);
 
-  const userPosts = apiRequest("/posts?userId=" + currentUser.id);
-  defer({ userPosts });
+  //const userPosts = apiRequest("/posts?userId=" + currentUser.id);
+  //defer({ userPosts });
+  const data = useLoaderData();
 
   const handleLogout = async () => {
     try {
@@ -58,17 +64,12 @@ const ProfilePage = () => {
           </div>
           <Suspense fallback={<p>Loading...</p>}>
             <Await
-              resolve={userPosts}
+              resolve={data.postResponse}
               errorElement={<p>Error loading posts!</p>}
             >
               {(userPostsResponse) => {
                 //console.log(userPostsResponse);
-                return userPostsResponse.data.data.map((item) => (
-                  <Card
-                    key={item.id}
-                    item={item}
-                  />
-                ));
+                return <List posts={userPostsResponse.data.data.userPosts} />;
               }}
             </Await>
           </Suspense>
@@ -76,7 +77,17 @@ const ProfilePage = () => {
           <div className="title">
             <h1>Saved List</h1>
           </div>
-          <List />
+          <Suspense fallback={<p>Loading...</p>}>
+            <Await
+              resolve={data.postResponse}
+              errorElement={<p>Error loading posts!</p>}
+            >
+              {(userPostsResponse) => {
+                //console.log(userPostsResponse);
+                return <List posts={userPostsResponse.data.data.savedPosts} />;
+              }}
+            </Await>
+          </Suspense>
         </div>
       </div>
       <div className="chatContainer">

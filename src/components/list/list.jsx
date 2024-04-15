@@ -1,16 +1,17 @@
-import { listData } from "../../lib/dummydata";
 import "./list.scss";
 import Card from "../card/card";
 
-const List = () => {
+const List = ({ posts }) => {
   return (
     <div className="list">
-      {listData.map((item) => (
-        <Card
-          item={item}
-          key={item.id}
-        />
-      ))}
+      {posts?.map((item) => {
+        return (
+          <Card
+            item={item}
+            key={item.id}
+          />
+        );
+      })}
     </div>
   );
 };

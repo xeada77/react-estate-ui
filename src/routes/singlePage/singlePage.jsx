@@ -1,12 +1,32 @@
 import "./singlePage.scss";
 import Slider from "../../components/slider/slider";
 import Map from "../../components/map/map";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Context/AuthContext";
+import apiRequest from "../../lib/apiRequest";
 
 const SinglePage = () => {
   const { data } = useLoaderData();
+  const [saved, setSaved] = useState(data.isSaved);
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   //console.log(data);
+
+  const handleSave = async () => {
+    setSaved((prev) => !prev);
+
+    if (!currentUser) {
+      navigate("/login");
+    }
+    try {
+      await apiRequest.post("/users/save", { postId: data.id });
+    } catch (err) {
+      console.log(err);
+      setSaved((prev) => !prev);
+    }
+  };
 
   return (
     <div className="singlePage">
@@ -151,22 +171,29 @@ const SinglePage = () => {
           <div className="mapContainer">
             <Map items={[data]} />
           </div>
-          <div className="buttons">
-            <button>
-              <img
-                src="/chat.png"
-                alt=""
-              />
-              Send a Message
-            </button>
-            <button>
-              <img
-                src="/save.png"
-                alt=""
-              />
-              Save the PLace
-            </button>
-          </div>
+          {currentUser === null || currentUser.id !== data.userId ? (
+            <div className="buttons">
+              <button>
+                <img
+                  src="/chat.png"
+                  alt=""
+                />
+                Send a Message
+              </button>
+              <button
+                className={saved ? "saved" : ""}
+                onClick={handleSave}
+              >
+                <img
+                  src="/save.png"
+                  alt=""
+                />
+                {saved ? "Place Saved" : "Save the Place"}
+              </button>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>
